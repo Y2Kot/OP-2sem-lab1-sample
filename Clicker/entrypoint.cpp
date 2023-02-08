@@ -5,10 +5,10 @@ void updateClickCount(Operation operation, AppContext* context);
 void doOperation(Operation operation, AppContext* context, AppParams* params) {
     switch(operation) {
     case Increment:
-        increment(context);
+        doIncrement(context);
         break;
     case Decrement:
-        decrement(context);
+        doDecrement(context);
         break;
     case Update:
         update(context, params->newValue);

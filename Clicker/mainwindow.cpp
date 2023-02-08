@@ -12,7 +12,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->incrementButton, &QPushButton::clicked, this, &MainWindow::onIncrementClicked);
     connect(ui->decrementButton, &QPushButton::clicked, this, &MainWindow::onDecrementClicked);
     connect(ui->updateButton, &QPushButton::clicked, this, &MainWindow::onUpdateValueClicked);
-    doOperation(Initialization, context, NULL);
+    doOperation(Initialization, &context, NULL);
     updateLabels();
 }
 
@@ -22,24 +22,25 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::onIncrementClicked() {
-    doOperation(Increment, context, NULL);
+    doOperation(Increment, &context, NULL);
     updateLabels();
 }
 void MainWindow::onDecrementClicked() {
-    doOperation(Decrement, context, NULL);
+    doOperation(Decrement, &context, NULL);
     updateLabels();
 }
 void MainWindow::onUpdateValueClicked() {
     AppParams* param = (AppParams*) malloc(sizeof(AppParams));
     param->newValue = ui->valueEdit->text().toInt();
-    doOperation(Update, context, param);
+    doOperation(Update, &context, param);
     updateLabels();
     free(param);
 }
 
 void MainWindow::updateLabels() {
-    ui->clickCount->setText(QString::number(context->clickCount));
-    ui->currentValue->setText(QString::number(context->currentValue));
+    ui->clickCount->setText(QString::number(context.clickCount));
+    ui->currentValue->setText(QString::number(context.currentValue));
+    ui->valueEdit->setText(QString::number(context.currentValue));
 }
 
 
